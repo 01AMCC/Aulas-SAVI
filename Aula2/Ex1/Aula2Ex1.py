@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
 import cv2 as cv
 import numpy as np
 
-img = cv.imread("lake.jpg") #dar upload da imagem 
+img = cv.imread('../Images/lake.jpg') #dar upload da imagem 
 
 altura, largura, canais = img.shape #obter as dimensões da imagem (altura, largura e nº de cores)
 
@@ -14,7 +15,7 @@ fourcc = cv.VideoWriter_fourcc(*"MJPG") #criação do vídeo
 saida_video = cv.VideoWriter("saida_video.avi", fourcc, 10.0, (largura, altura))
 
 # ciclo for para variar o fator de aumento
-for fator_aumento in np.arange(1.0, 0.0, -0.1):  # Varia de 1.0 a 0.0 em decrementos de 0.1
+for fator_aumento in np.arange(1.0, 0.0, -0.1):  
     # intensidade dos pixels da metade direita
     metade_direita_aumentada = (metade_direita * fator_aumento).astype(np.uint8)
 
@@ -23,6 +24,7 @@ for fator_aumento in np.arange(1.0, 0.0, -0.1):  # Varia de 1.0 a 0.0 em decreme
 
     # guardar o video
     saida_video.write(imagem_resultante)
+
 
     # Atualização do conteúdo da janela com a nova imagem
     cv.imshow("Sequência de Imagens", imagem_resultante)
@@ -35,5 +37,6 @@ for fator_aumento in np.arange(1.0, 0.0, -0.1):  # Varia de 1.0 a 0.0 em decreme
         break
 
 saida_video.release()
+cv.imwrite('NewImage.jpg',imagem_resultante)
 
 cv.destroyAllWindows()
